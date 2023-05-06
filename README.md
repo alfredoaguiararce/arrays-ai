@@ -56,3 +56,7 @@ If you want to contribute to the project, you can do the following:
 ## **License**
 
 This project is distributed under the MIT license. See the LICENSE file for more details.
+
+If you find useful, consider supporting the project by making a donation via PayPal:
+
+[Support in Paypal ♥️ ](https://www.paypal.com/donate/?hosted_button_id=Z6KKYZKYY25CW)
