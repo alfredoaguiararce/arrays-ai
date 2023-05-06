@@ -1,0 +1,37 @@
+{
+  "name": "arrays-ai",
+  "version": "1.0.0",
+  "description": "Arrays-ai is a library that enables processing of data arrays in JavaScript using natural language instructions. Instead of just processing data, the library interprets the natural language instructions provided by the user and generates the necessary operations to filter, sort, or manipulate the array based on the specified criteria.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon sample.js",
+    "start_sample": "nodemon sample.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alfredoaguiararce/arrays-ai.git"
+  },
+  "keywords": [
+    "openai",
+    "open",
+    "ai",
+    "chat",
+    "gpt",
+    "arrays",
+    "filter"
+  ],
+  "author": "Alfredo Aguiar Arce <alfredoaguiararce@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alfredoaguiararce/arrays-ai/issues"
+  },
+  "homepage": "https://github.com/alfredoaguiararce/arrays-ai#readme",
+  "dependencies": {
+    "openai": "^3.2.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.22"
+  }
+}
