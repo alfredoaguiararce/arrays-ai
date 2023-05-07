@@ -1,5 +1,11 @@
 # Arrays-AI
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow.svg)](https://www.javascript.com/)
+
 The "arrays-ai" library provides a way to manipulate arrays of objects in JavaScript using artificial intelligence. It allows performing operations such as filtering, aggregaton, sorting, and removing elements from the array, interpreting commands in natural language. The library uses the OpenAI API to process the commands and apply the corresponding operations on the array.
 
 ## **Installation**
@@ -36,6 +42,18 @@ GetQuery(array, "Get the persons with name Alfredo")
 ```
 
 The "GetQuery" function uses OpenAI's artificial intelligence to interpret the query and perform the corresponding manipulation on the array. The result is returned through a promise that resolves with the modified array.
+
+
+## **TypeScript Support**
+
+
+The "arrays-ai" library is fully compatible with TypeScript. Starting from version 1.1.1, the library includes TypeScript declaration files (.d.ts) that allow for type checking at compile time and better editor support.
+
+To use the library in your TypeScript project, simply install the package via NPM:
+
+```bash
+npm install arrays-ai
+```
 
 ## **Documentation**
 
