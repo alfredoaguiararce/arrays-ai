@@ -1,12 +1,13 @@
 {
-    "compilerOptions": {
-      "module": "commonjs",
-      "target": "es6",
-      "sourceMap": true,
-      "resolveJsonModule": true
-    },
-    "exclude": [
-      "node_modules"
-    ]
-  }
-  
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

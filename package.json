@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
     "js-start": "nodemon sample.js",
-    "ts-start":"ts-node sample.ts",
+    "ts-start": "nodemon --exec ts-node sample.ts",
     "start_sample": "nodemon sample.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -38,6 +39,7 @@
     "@types/node": "^20.1.0",
     "dotenv": "^16.0.3",
     "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   }
 }
