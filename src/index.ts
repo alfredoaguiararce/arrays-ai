@@ -69,5 +69,48 @@ async function GetQuery(array: Array<object>, Prompt: string): Promise<Array<obj
   return array;
 }
 
+async function test_func(arrays: Array<Array<object>>, Prompt: string): Promise<Object> {
+  // Check if the OpenAI API object is undefined and throw an error if it is
+  if (openai == undefined) throw new Error('Please configure key first by calling configureKey()');
+  // Array to store props for each array
+  const propsArray: Array<Props> = [];
+
+  // Iterate over each array in the arrays parameter
+  for (const array of arrays) {
+   // Get the properties of the objects in the current array
+   const props: Props = GetArrayProps(array);
+   // Add props to the propsArray
+   propsArray.push(props);
+  }
+  
+  console.log("🚀 ~ file: index.ts:84 ~ test_func ~ propsArray:", propsArray)
+  // Create a prompt for the OpenAI API to generate the filter code
+  const PromtConcat = `Generate TypeScript filters for an array or arrays named 'arrays'. The structure of each individual array is represented by ${JSON.stringify(propsArray)}. Each row represents the properties of each array. Based on the following question or criteria: ---${Prompt}---.Use the index to refer to each individual array with flexibility in their properties. If needed, you can perform operations on the arrays using the 'map()' function. You can join the arrays based on specific properties by specifying the join condition. Manipulate the arrays according to the question and return the filtered result. The generated filter should only include the return statement without the 'return' keyword.`;
+
+  // Send the prompt to the OpenAI API to generate the filter code
+  const response = await openai.createCompletion({
+    model: 'text-davinci-003',
+    prompt: PromtConcat,
+    temperature: 0,
+    max_tokens: 100,
+    n: 1,
+  });
+
+  // Get the generated text from the response
+  const GeneretedText: String | undefined = response.data.choices[0].text;
+
+  // Check if the generated text is undefined and throw an error if it is
+  if(GeneretedText == undefined) throw new Error("There's not response for the prompt");
+
+  // Trim the generated text and evaluate it as JavaScript code to get the filtered array
+  const query = GeneretedText.trim();
+  console.log("🚀 ~ file: index.ts:63 ~ query:", query)
+  eval('arrays ='+ query);
+  console.log(arrays)
+
+  // Return the filtered array
+  return arrays;
+}
+
 // Export the GetQuery and ConfigureKey functions
-export { GetQuery, ConfigureKey };
+export { GetQuery, ConfigureKey, test_func };
