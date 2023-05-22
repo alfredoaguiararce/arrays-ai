@@ -36,10 +36,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConfigureKey = exports.GetQuery = void 0;
+exports.test_func = exports.ConfigureKey = exports.GetQuery = void 0;
 // Import OpenAI and Utils modules
 var openai_1 = require("openai");
 var Utils_1 = require("./Utils");
+var math = require('mathjs');
 // Initialize variables for OpenAI configuration and API
 var configuration = undefined;
 var openai = undefined;
@@ -94,6 +95,7 @@ function GetQuery(array, Prompt) {
                     if (GeneretedText == undefined)
                         throw new Error("There's not response for the prompt");
                     query = GeneretedText.trim();
+                    console.log("🚀 ~ file: index.ts:63 ~ query:", query);
                     eval('array = ' + query);
                     // Return the filtered array
                     return [2 /*return*/, array];
@@ -102,3 +104,45 @@ function GetQuery(array, Prompt) {
     });
 }
 exports.GetQuery = GetQuery;
+function test_func(arrays, Prompt) {
+    return __awaiter(this, void 0, void 0, function () {
+        var propsArray, _i, arrays_1, array, props, PromtConcat, response, GeneretedText, query;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    // Check if the OpenAI API object is undefined and throw an error if it is
+                    if (openai == undefined)
+                        throw new Error('Please configure key first by calling configureKey()');
+                    propsArray = [];
+                    // Iterate over each array in the arrays parameter
+                    for (_i = 0, arrays_1 = arrays; _i < arrays_1.length; _i++) {
+                        array = arrays_1[_i];
+                        props = (0, Utils_1.GetArrayProps)(array);
+                        // Add props to the propsArray
+                        propsArray.push(props);
+                    }
+                    console.log("🚀 ~ file: index.ts:84 ~ test_func ~ propsArray:", propsArray);
+                    PromtConcat = "Generate a TypeScript filter for an array of arrays named array of objects with the structure ".concat(JSON.stringify(propsArray), " where each row represents the propierties of each array, to based on the following criteria or respond to the question: ---").concat(Prompt, "---. should only return the return statetment without the return word.");
+                    return [4 /*yield*/, openai.createCompletion({
+                            model: 'text-davinci-003',
+                            prompt: PromtConcat,
+                            temperature: 0,
+                            max_tokens: 100,
+                            n: 1,
+                        })];
+                case 1:
+                    response = _a.sent();
+                    GeneretedText = response.data.choices[0].text;
+                    // Check if the generated text is undefined and throw an error if it is
+                    if (GeneretedText == undefined)
+                        throw new Error("There's not response for the prompt");
+                    query = GeneretedText.trim();
+                    console.log("🚀 ~ file: index.ts:63 ~ query:", query);
+                    //eval('array = ' + query);
+                    // Return the filtered array
+                    return [2 /*return*/, query];
+            }
+        });
+    });
+}
+exports.test_func = test_func;
