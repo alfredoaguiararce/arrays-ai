@@ -36,10 +36,11 @@ let collection_2 = [
   { nombre: 'Marta', edad: 22, ciudad: 'Ixtlan', cumpleaños: '1999-11-28' }
 ];
 
-let arrays = [collection_1, collection_2];
+let collections = [collection_1, collection_2];
 
 
 arraysai.SetData([collection_1, collection_2]);
+arraysai.SetArraysName("collections");
 // console.log(arraysai.GetData());
 // console.log(arraysai.GetColumns());
 
@@ -61,22 +62,22 @@ let coderesult: string;
 
 // ¿Cuál es el máximo valor de una columna numérica en un conjunto de datos?✔
 // arraysai.Ask("Cual es la edad mayor en cada tabla?")
-// arraysai.Ask("Cual es la edad mayor en todos los datos??")
+arraysai.Ask("Cual es la edad mayor en todos los datos??")
 
 // ¿Cuál es la suma total de una columna numérica en un conjunto de datos?✔
 // arraysai.Ask("Cual es la suma de las edades para la primer tabla?")
 // arraysai.Ask("Cual es la suma de edades en cada arreglo por separado?")
 
 // ¿Cuántos registros cumplen cierta condición en una tabla o dataframe?✔
-// arraysai.Ask("Cauntos registros tienen una edad nulla?")
-// arraysai.Ask("Cauntos registros tienen una edad nulla en el segundo arreglo???")
+//arraysai.Ask("Cauntos registros tienen una edad nulla?")
+//  arraysai.Ask("Cauntos registros tienen una edad nulla en el segundo arreglo???")
 
 
 // ¿Cuál es la distribución de frecuencia de una columna categórica en un conjunto de datos?
 
 
 // ¿Cuál es el porcentaje de registros que cumplen una condición específica en una tabla o dataframe?✔
-// arraysai.Ask("que porcentaje de personas son mayores de edad?")
+//  arraysai.Ask("que porcentaje de personas son mayores de edad?")
 // arraysai.Ask("que porcentaje de personas son mayores de edad en cada arreglo por separado??")
 
 // ¿Cuáles son los valores únicos en una columna categórica en un conjunto de datos? ❌
@@ -94,11 +95,14 @@ let coderesult: string;
 
 
 // arraysai.Ask("Haz una grafica de barras de las edades del primer arreglo usando chart.js") -- Review 
-arraysai.Ask("Cuantas veces se repite Ixtlan en las ciudades del primer arreglo??")
+// arraysai.Ask("Cuantas veces se repite Ixtlan en las ciudades del ultimo arreglo??")
+// arraysai.Ask("Cual es el animal mas grande del mundoi?")
 .then(answer => 
   {
-      console.log(answer);
-      coderesult = answer;
+      // let collections = arraysai.GetData();
+      // console.log(answer);
+      // coderesult = answer;
+      // eval(answer)
       // eval("(function() { "+ coderesult +" })()");
     }
   );

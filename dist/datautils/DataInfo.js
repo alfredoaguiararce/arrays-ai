@@ -24,6 +24,11 @@ var DataInfo = /** @class */ (function () {
         // Return the Props object
         return Columns;
     };
+    DataInfo.prototype.GetElementsCount = function () {
+        if (this._data == undefined)
+            throw new Error("There's not data.");
+        return this._data.length;
+    };
     return DataInfo;
 }());
 exports.DataInfo = DataInfo;

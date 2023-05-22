@@ -5,4 +5,8 @@ declare enum Tags {
 declare enum ListedLibraries {
     MATH = "math.js"
 }
-export { Tags, ListedLibraries };
+declare enum BuilInLanguage {
+    TYPESCRIPT = "TypeScript",
+    JAVASCRIPT = "JavaScript"
+}
+export { Tags, ListedLibraries, BuilInLanguage };

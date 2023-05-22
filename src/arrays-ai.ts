@@ -1,4 +1,4 @@
-import { Configuration, OpenAIApi } from 'openai';
+import { Configuration, CreateCompletionRequest, OpenAIApi } from 'openai';
 import { DataInfo } from './datautils/DataInfo';
 import { IOpenAiConfiguration, OpenAiConfigurator } from './Utils/OpenAiValidator';
 import { Tags, ListedLibraries, BuilInLanguage } from './Constants';
@@ -12,6 +12,8 @@ class ArraysAi<T>
     private _configurator : IOpenAiConfiguration;
     private _openaiapi: OpenAIApi | undefined;
     private _language_output: BuilInLanguage = BuilInLanguage.JAVASCRIPT; // Default Value
+    private _code_result: string | undefined;
+    private _arrays_name: string = "collections";
 
     // If the question does not specify a particular array indexes, you need to concatenate or merge all the arrays into a single array before performing any operations or calculations;
     private _task_prompt: string = 
@@ -27,11 +29,57 @@ class ArraysAi<T>
     use 'return' instead 'console.log()'
     `;
 
+    public async Ask(Question?: string | undefined, Completion?: CreateCompletionRequest): Promise<string>{
+        if(Question == null || Question == undefined) throw new Error("Please provide a question...");
+        const PromptQuestion = this.FormmatPropmt(Question);
+        let response: any;
+        // Send the prompt to the OpenAI API to generate the filter code
+        if(Completion != undefined) response = await this._openaiapi.createCompletion(Completion);
+        else 
+        {
+            response = await this._openaiapi.createCompletion(
+                {
+                    model: 'text-davinci-003',
+                    prompt: PromptQuestion,
+                    temperature: 0,
+                    max_tokens: 250,
+                    n: 1,
+                });
+        }
+
+        // Get the generated text from the response
+        const GeneratedText: string | undefined = response.data.choices[0].text;
+
+        // Check if the generated text is undefined and throw an error if it is
+        if (GeneratedText == undefined) throw new Error("There's no response for the prompt");
+
+        // Trim the generated text and evaluate it as {BUILD_LANGUAGE} code to get the filtered array
+        const query = GeneratedText.trim();
+        this._code_result = query;
+        console.log("🚀 ~ file: arrays-ai.ts:59 ~ Ask ~ query:", query)
+        return query;
+    }
+
+    public async RunResponse(): Promise<any>{
+        if(this._code_result == undefined) throw new Error("There's no response for the prompt")
+        try {
+            let collections = this.GetData();
+            eval(this._code_result.replace(Tags.START_CODE_TAG, "").replace(Tags.END_CODE_TAG, ""));
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
     public Configure(OpenAiConfig: Configuration, OutputLanguage?: BuilInLanguage){
         this._configurator = new OpenAiConfigurator(OpenAiConfig);
         this._openaiapi = this._configurator.GetConfiguredOpenAiApi();
 
         if(OutputLanguage != undefined || OutputLanguage != null) this._language_output = OutputLanguage;
+    }
+
+    public SetArraysName(Name: string): void
+    {
+        this._arrays_name = Name;
     }
 
     public SetData(Data : Array<Array<T>>): void{
@@ -59,32 +107,9 @@ class ArraysAi<T>
         return this._columns;
     }
 
-    public async Ask(Question?: string | undefined): Promise<string>{
-        if(Question == null || Question == undefined) throw new Error("Please provide a question...");
-        const PromptQuestion = this.FormmatPropmt(Question);
-        console.log("🚀 ~ file: arrays-ai.ts:55 ~ Ask ~ PromptQuestion:", PromptQuestion)
-        // Send the prompt to the OpenAI API to generate the filter code
-        const response = await this._openaiapi.createCompletion({
-            model: 'text-davinci-003',
-            prompt: PromptQuestion,
-            temperature: 0,
-            max_tokens: 250,
-            n: 1,
-        });
-
-        // Get the generated text from the response
-        const GeneratedText: string | undefined = response.data.choices[0].text;
-
-        // Check if the generated text is undefined and throw an error if it is
-        if (GeneratedText == undefined) throw new Error("There's no response for the prompt");
-
-        // Trim the generated text and evaluate it as {BUILD_LANGUAGE} code to get the filtered array
-        const query = GeneratedText.trim();
-        return query;
-    }
-
     public FormmatPropmt(Question: string): string{
-        this._task_prompt = this._task_prompt.replace("{ARRAYS_NAME}", "arrays")
+        this._task_prompt = this._task_prompt
+        .replace("{ARRAYS_NAME}", this._arrays_name)
         .replace("{BUILD_LANGUAGE}", this._language_output)
         .replace("{COLUMNS}", JSON.stringify(this._columns))
         .replace("{START_CODE_TAG}", Tags.START_CODE_TAG)
