@@ -6,6 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "start":"nodemon sample.js",
     "tests": "nodemon --exec ts-node sample.ts",
     "tests_v2": "nodemon --exec ts-node sample_v2.ts",
     "start_sample": "nodemon sample.js"

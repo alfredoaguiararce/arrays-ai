@@ -11,10 +11,10 @@ enum ListedLibraries{
 }
 
 enum BuilInLanguage{
-    TYPESCRIPT = "TypeScript"
-    ,JAVASCRIPT = "JavaScript"
+    JAVASCRIPT = "JavaScript"
+    // ,TYPESCRIPT = "TypeScript"
 }
 
 export{
-    Tags, ListedLibraries,BuilInLanguage
+    Tags, ListedLibraries, BuilInLanguage
 }
