@@ -1,5 +1,5 @@
 import { Configuration } from 'openai';
-import { BuilInLanguage } from './Constants';
+import { BuilInLanguage } from '../dist/Constants';
 import { IColumns } from './Interfaces/IColumns';
 declare class ArraysAi<T> {
     private _data;
