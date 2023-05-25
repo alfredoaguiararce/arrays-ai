@@ -23,25 +23,45 @@ You can also download the source code from the GitHub repository and use it dire
 To use the library in your project, you must first import it:
 
 ```jsx
-const { GetQuery, ConfigureKey } = require('arrays-ai');
+import * as dotenv from "dotenv";
+dotenv.config({ path: './.env' });
+import { ArraysAi, Languages, Configuration } from '../dist/index';
+
+// Get the OPEN AI API KEY from the .env file
+dotenv.config();
+let APIKEY = process.env.OPENAI_API_KEY;
+if(APIKEY == undefined) throw new Error("APIKEY not found in .env file");
+
+// Configure with the OPEN AI API KEY
+let config : Configuration = new Configuration({
+  apiKey: APIKEY
+});
+
+// configure the arraysai object
+const arraysai : ArraysAi<any> = new ArraysAi();
+arraysai.Configure(config);
+
+// Set the arrays to be used in the questions
+let arrays = [collection_1, collection_2, ...];
+arraysai.SetData(arrays);
+
+// Language used in the verbose answers by default use English
+arraysai.SetLanguage(Languages.ENGLISH);
+
 ```
 
-Then, you must configure the OpenAI API key using the "ConfigureKey" function. This key is necessary to use certain functions of the library:
+After that, you can manipulate an array of objects using the "Ask()" function. This function takes as parameters the array to manipulate and a query string that indicates the operation to perform and a boolean value in case you whant a verbose response. For example:
 
 ```jsx
-ConfigureKey(process.env.OPENAI_API_KEY);
+arraysai.Ask("How many records have a null age in the first array???", true)
+.then(answer => 
+  {
+      console.log(answer); // There are two records in the first array that have a null age.
+    }
+  );
 ```
 
-After that, you can manipulate an array of objects using the "GetQuery" function. This function takes as parameters the array to manipulate and a query string that indicates the operation to perform. For example, to add an element to the array, you could use the following query:
-
-```jsx
-GetQuery(array, "Get the persons with name Alfredo")
-  .then(array => {
-    console.log(array);
-  });
-```
-
-The "GetQuery" function uses OpenAI's artificial intelligence to interpret the query and perform the corresponding manipulation on the array. The result is returned through a promise that resolves with the modified array.
+The "Ask()" function uses OpenAI's artificial intelligence to interpret the query and perform the corresponding manipulation on the array. The result is returned through a string for verbose answers or any for simple questions.
 
 
 ## **TypeScript Support**
@@ -59,10 +79,35 @@ npm install arrays-ai
 
 The "arrays-ai" library has the following API:
 
-| Function | Description |
+| Method | Description |
 | --- | --- |
-| GetQuery(array: Array, query: string) => Promise<Array> | Performs a manipulation on the "array" according to the "query". Returns a promise that resolves with the modified array. |
-| ConfigureKey(apiKey: string) => void | Configures the OpenAI API key. This function must be called before using the "GetQuery" function. |
+| Configure(OpenAiConfig: Configuration, OutputLanguage?: BuilInLanguage): void | Configures the OpenAI API and the output language (optional). |
+| SetLanguage(Language: Languages): void | Sets the language used in the generated responses. |
+| SetData(Data: Array<Array<T>>): void | Sets the data for the table. |
+| GetData(): Array<Array<T>> | Gets the data from the table. |
+| GetColumns(): Array<IColumns> | Gets the column information of the table. |
+| SetTokenNumber(Tokens: number): void | Sets the maximum number of tokens for response generation. |
+| SetTemperature(Temperature: number): void | Sets the temperature for response generation. |
+
+The **`Ask(Question?: string, Verbose?: boolean): Promise<string | any>`** method is used to ask a question about the table data and retrieve the generated response from the OpenAI API.
+
+- **`Question`** (optional): A string representing the question you want to ask about the table data.
+- **`Verbose`** (optional): A boolean value indicating whether you want a detailed response or not. If set to **`true`**, the method will return a verbose response.
+
+The method sends the provided question as a prompt to the OpenAI API, which generates a response based on the configured model and parameters. The generated response contains the answer or result based on the question asked.
+
+If the **`Verbose`** parameter is set to **`true`**, the method will also generate a verbose response that includes the original question and the answer for better understanding.
+
+The method returns a Promise that resolves to either a string or any data type depending on the response received from the API. The return value contains the generated response or the result of the question asked.
+
+Please note that you need to configure the OpenAI API and set the table data using the **`Configure`** and **`SetData`** methods before calling the **`Ask`** method.
+
+## **Enumeration: `Languages`**
+
+| Value | Description |
+| --- | --- |
+| ENGLISH | Represents the English language. |
+| SPANISH | Represents the Spanish language. |
 
 ## **Contributing**
 
