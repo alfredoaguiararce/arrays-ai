@@ -1,11 +1,11 @@
-import { Props, GetArrayProps } from './Utils';
-import { IOpenAiConfiguration, OpenAiConfigurator } from './OpenAiValidator';
+import { Props, GetArrayProps } from './PropsReader';
+import { OpenAiConfigurator } from './OpenAiValidator';
 import { Configuration, OpenAIApi } from 'openai';
 
 
 /* These lines of code are initializing two variables, `Configurator` and `openai`, which are used to
 configure and access the OpenAI API. */
-let Configurator: IOpenAiConfiguration;
+let Configurator: OpenAiConfigurator;
 let openai: OpenAIApi;
 
 /**

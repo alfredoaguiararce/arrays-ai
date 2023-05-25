@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConfigureKey = exports.GetQuery = void 0;
-const Utils_1 = require("./Utils");
+const PropsReader_1 = require("./PropsReader");
 const OpenAiValidator_1 = require("./OpenAiValidator");
 const openai_1 = require("openai");
 /* These lines of code are initializing two variables, `Configurator` and `openai`, which are used to
@@ -45,7 +45,7 @@ function GetQuery(array, Prompt) {
         if (openai == undefined)
             throw new Error('Please configure key first by calling ConfigureKey()');
         // Get the properties of the objects in the array
-        const props = (0, Utils_1.GetArrayProps)(array);
+        const props = (0, PropsReader_1.GetArrayProps)(array);
         // Create a prompt for the OpenAI API to generate the filter code
         const PromtConcat = `Generate a TypeScript filter for an array named array of objects with the structure ${JSON.stringify(props)}, to based on the following criteria or respond to the question: ---${Prompt}---. should only return the return statetment without the return word.`;
         // Send the prompt to the OpenAI API to generate the filter code

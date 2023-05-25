@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetQuery = exports.ConfigureKey = exports.Configuration = exports.BuilInLanguage = exports.ArraysAi = void 0;
-const BasicQuery_1 = require("./Utils/BasicQuery");
+exports.Languages = exports.GetQuery = exports.ConfigureKey = exports.Configuration = exports.BuilInLanguage = exports.ArraysAi = void 0;
+const BasicQuery_1 = require("./utils/BasicQuery");
 Object.defineProperty(exports, "GetQuery", { enumerable: true, get: function () { return BasicQuery_1.GetQuery; } });
 Object.defineProperty(exports, "ConfigureKey", { enumerable: true, get: function () { return BasicQuery_1.ConfigureKey; } });
-const arrays_ai_1 = require("./arrays-ai");
+const arrays_ai_1 = require("./classes/arrays-ai");
 Object.defineProperty(exports, "ArraysAi", { enumerable: true, get: function () { return arrays_ai_1.ArraysAi; } });
 const Constants_1 = require("./Constants");
 Object.defineProperty(exports, "BuilInLanguage", { enumerable: true, get: function () { return Constants_1.BuilInLanguage; } });
+Object.defineProperty(exports, "Languages", { enumerable: true, get: function () { return Constants_1.Languages; } });
 const openai_1 = require("openai");
 Object.defineProperty(exports, "Configuration", { enumerable: true, get: function () { return openai_1.Configuration; } });

@@ -1,6 +1,7 @@
 import { Configuration, OpenAIApi } from 'openai';
 
-class OpenAiConfigurator implements IOpenAiConfiguration {
+class OpenAiConfigurator 
+{
   private _openaiApi: OpenAIApi | undefined;
 
   constructor(private configuration: Configuration) {}
@@ -13,8 +14,4 @@ class OpenAiConfigurator implements IOpenAiConfiguration {
   }
 }
 
-interface IOpenAiConfiguration {
-  GetConfiguredOpenAiApi(): OpenAIApi;
-}
-
-export { OpenAiConfigurator, IOpenAiConfiguration };
+export { OpenAiConfigurator };
