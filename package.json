@@ -9,7 +9,8 @@
     "start":"nodemon sample.js",
     "tests": "nodemon --exec ts-node ./samples/sample.ts",
     "tests_v2": "nodemon --exec ts-node ./samples/sample_2.ts",
-    "start_sample": "nodemon sample.js"
+    "start_sample": "nodemon sample.js",
+    "publish": "npm publish --access public"
   },
   "repository": {
     "type": "git",
