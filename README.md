@@ -22,7 +22,7 @@ You can also download the source code from the GitHub repository and use it dire
 
 To use the library in your project, you must first import it:
 
-```jsx
+```typescript
 import * as dotenv from "dotenv";
 dotenv.config({ path: './.env' });
 import { ArraysAi, Languages, Configuration } from '../dist/index';
@@ -52,7 +52,7 @@ arraysai.SetLanguage(Languages.ENGLISH);
 
 After that, you can manipulate an array of objects using the "Ask()" function. This function takes as parameters the array to manipulate and a query string that indicates the operation to perform and a boolean value in case you whant a verbose response. For example:
 
-```jsx
+```typescript
 arraysai.Ask("How many records have a null age in the first array???", true)
 .then(answer => 
   {
