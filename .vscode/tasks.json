@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "tests_v2",
+			"problemMatcher": [],
+			"label": "npm: tests_v2",
+			"detail": "nodemon --exec ts-node ./samples/sample_2.ts"
+		}
+	]
+}
