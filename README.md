@@ -6,7 +6,7 @@
 
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow.svg)](https://www.javascript.com/)
 
-The "arrays-ai" library provides a way to manipulate arrays of objects in JavaScript using artificial intelligence. It allows performing operations such as filtering, aggregaton, sorting, and removing elements from the array, interpreting commands in natural language. The library uses the OpenAI API to process the commands and apply the corresponding operations on the array.
+The Arrays AI library enriches JavaScript arrays with artificial intelligence capabilities, empowering data analysis tasks. It seamlessly integrates with JavaScript, specifically designed to complement its functionality and not to replace it. This library is particularly useful for performing advanced data analysis operations on arrays of objects. It leverages the power of artificial intelligence and the OpenAI API to process natural language commands, enabling efficient filtering, aggregation, sorting, and removal of elements within the array. By combining the flexibility of JavaScript with the intelligence of the Arrays AI library, developers can achieve sophisticated data analysis and manipulation workflows.
 
 ## **Installation**
 
